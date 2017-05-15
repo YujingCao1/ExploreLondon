@@ -31,6 +31,19 @@
 	float: left;
 	width: 100%;
 }
+
+.select{
+	border-radius: 4px;
+	border: 1.2px solid;
+	height: 50px;
+	padding: 1%;
+	cursor: pointer;
+
+	font-weight: bold;
+
+	color: black;
+	text-decoration: none;
+}
 /*#attribute{
 	border-radius: 4px;
 	border: 1.2px solid;

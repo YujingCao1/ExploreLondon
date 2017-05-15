@@ -6,9 +6,10 @@
 		<link type="text/css" rel="stylesheet" href="Map.css">
 </head>
 
-	<body>
+	<body onload="load()">
 		<div id = "dropDown">
 			<select id="dataset">
+				<!-- <option id="data_0" title="Select A Topic">Select A Topic</option> -->
 				<option id="data_1" title="Economics Characteristiscs">Economics</option>
 				<option id="data_2" title="Population Characteristiscs">Population</option>
 			</select>
@@ -47,11 +48,34 @@
 										return d.name;
 									});
 			});
-		/*
+		
 		function load(){
-			d3.json("JSON/Economics.json", function(error, data){
+
+			d3.json('JSON/Economics.json', function(error, data){
 
 				if(error) console.log("error fetching data");
+
+				variableName_0 = "JOBS_DENSI"
+
+				var attrValue = []; // store all the values of selected attribute.
+
+				for (var i = 0; i < data.features.length; i++){
+					attrValue[i] = data.features[i].properties[variableName_0];
+				}
+
+
+				var attrMax = d3.max(attrValue);
+				var attrMin = d3.min(attrValue);
+
+				var colorScale = d3.scale.quantile()
+					.range(['#94bfac', '#5b9291', '#3b6879', '#264d7e', '#1f3057', '#2a283d'])
+					.domain([attrMin, attrMax])
+
+				// Draw London Map
+				var svg = d3.select("body").append("svg")
+					.attr("id", "map")
+					.attr("width", w)
+					.attr("height",h);
 
 				var group = svg.selectAll("g")
 					.data(data.features)
@@ -59,22 +83,21 @@
 					.append("g");
 
 				var projection = d3.geo.mercator()
-					.scale([15000])
+					.scale([40000])
 					.center(d3.geo.centroid(data));
 
 				var path = d3.geo.path().projection(projection);
+				var tooltipDiv = document.getElementById('tooltip');
 
 				var areas = group.append("path")
 					.attr("d",path)
 					.attr("class", "area")
-					.style("fill", function(d,i){
-						return base_color(i)
-					})
-					.style("fill-opacity", 0.8)
-					.style("stroke", "rgba(5, 4, 4, 0.2)")
+					.style("fill", function(d){
+						return base_color(d.properties[variableName_0])
+					});
 			});
     	}
-    	*/
+    	
 
 		// Change Attribute
 		function changeAttr(sel){
