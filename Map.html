@@ -87,7 +87,8 @@
 
 				// Get the selected value of the dropdown list
 				var sel = d3.select("#attribute").node().value;
-				variableName = attributeName(sel);
+					
+					variableName = attributeName(sel);
 					
 				console.log(sel + " " + variableName)
 
@@ -163,6 +164,7 @@
 		// Get variable name from Attribute list
 		function attributeName(val){
 			attributesJSON.forEach(function(d){
+				console.log(d.abs)
 				if (d.name == val){
 					return variableName = d.abs;
 				}
