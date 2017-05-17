@@ -8,11 +8,7 @@
 
 	<body onload="load()">
 		<div id = "dropDown">
-			<select id="dataset" onchange="changeTopic(this.options[this.selectedIndex].innerHTML); changeDropdown(this.options[this.selectedIndex].innerHTML)">
-				<!-- <option id="data_0" title="Select A Topic">Select A Topic</option> -->
-				<option id="data_1" title="Economics Characteristiscs">Economics</option>
-				<option id="data_2" title="Population Characteristiscs">Population</option>
-			</select>
+			<select id="dataset" onchange="changeTopic(this.options[this.selectedIndex].innerHTML); changeDropdown(this.options[this.selectedIndex].innerHTML)"></select>
 			<select id = "attribute" onChange="changeAttr(this.options[this.selectedIndex].innerHTML)"></select>
 		</div>
 		<div id="map"></div>

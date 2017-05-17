@@ -43,21 +43,8 @@ select{
 	font-size: 14px;
 }
 
-/*#attribute{
-	border-radius: 4px;
-	border: 1.2px solid;
-	height: 30px;
-	padding: 1%;
 
-	outline: none;
-	cursor: pointer;
-
-	font-weight: bold;
-
-	color: black;
-	text-decoration: none;
-}
-
+/*
 #dataset{
 	border-radius: 4px;
 	border: 1.2px solid;
