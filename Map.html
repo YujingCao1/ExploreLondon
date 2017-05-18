@@ -84,9 +84,9 @@
 					.enter()
 					.append("g");
 				var projection = d3.geo.mercator()
-					.scale([50000])
+					.scale([55000])
 					.center(d3.geo.centroid(data))
-					.translate([w, 0.7*h]);
+					.translate([0.8*w, 0.7*h]);
 				var path = d3.geo.path().projection(projection);
 				var tooltipDiv = document.getElementById('tooltip');
 				var areas = group.append("path")
@@ -173,16 +173,20 @@
 					.enter()
 					.append("g");
 				var projection = d3.geo.mercator()
-					.scale([50000])
+					.scale([55000])
 					.center(d3.geo.centroid(data))
-					.translate([w, 0.7*h]);
+					.translate([0.8*w, 0.7*h]);
 				var path = d3.geo.path().projection(projection);
 				var tooltipDiv = document.getElementById('tooltip');
 				var areas = group.append("path")
 					.attr("d",path)
 					.attr("class", "area")
 					.style("fill", function(d){
-						return colorScale(d.properties[variableName])
+						if(variableName != "Select An Attribute"){
+							return colorScale(d.properties[variableName])
+						}else{
+							return "gray"
+						}
 					})
 					.style("fill-opacity", 0.8)
 					.style("stroke", "rgba(5, 4, 4, 0.6)")
