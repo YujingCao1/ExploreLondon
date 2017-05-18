@@ -75,7 +75,7 @@
 				var attrMax = d3.max(attrValue);
 				var attrMin = d3.min(attrValue);
 				var colorScale = d3.scale.quantile()
-					.range(['#94bfac', '#5b9291', '#3b6879', '#264d7e', '#1f3057', '#2a283d'])
+					.range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"])
 					.domain([attrMin, attrMax])
 				// Draw London Map
 				var svg = d3.select("body").append("svg")
@@ -102,7 +102,7 @@
 
     	// Change Attribute List based on the Selected Topic
     	function changeDropdown(topic){
-    		//document.getElementById("#attribute").options.length = 0;
+   
     		removeDropDown();
 
     		var topic = d3.select("#dataset").node().value;
@@ -162,8 +162,8 @@
 				}
 				var attrMax = d3.max(attrValue);
 				var attrMin = d3.min(attrValue);
-				var colorScale = d3.scale.quantile()
-					.range(['#94bfac', '#5b9291', '#3b6879', '#264d7e', '#1f3057', '#2a283d'])
+				var colorScale = d3.scale.linear()
+					.range(["#2c7bb6","#d7191c"])
 					.domain([attrMin, attrMax])
 				// Draw London Map
 				var svg = d3.select("body").append("svg")
