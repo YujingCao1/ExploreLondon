@@ -84,8 +84,9 @@
 					.enter()
 					.append("g");
 				var projection = d3.geo.mercator()
-					.scale([40000])
-					.center(d3.geo.centroid(data));
+					.scale([50000])
+					.center(d3.geo.centroid(data))
+					.translate([w, 0.7*h]);
 				var path = d3.geo.path().projection(projection);
 				var tooltipDiv = document.getElementById('tooltip');
 				var areas = group.append("path")
@@ -127,7 +128,7 @@
 
     	// Change Topic
     	function changeTopic(topic, sel){
-    		d3.selectAll("#map").transition().remove();
+    		d3.selectAll("#map").remove();
     		var topic  = d3.select("#dataset").node().value;
     		var dataset = topic;
    			var sel = d3.select("#attribute").node().value;
@@ -172,8 +173,9 @@
 					.enter()
 					.append("g");
 				var projection = d3.geo.mercator()
-					.scale([40000])
-					.center(d3.geo.centroid(data));
+					.scale([50000])
+					.center(d3.geo.centroid(data))
+					.translate([w, 0.7*h]);
 				var path = d3.geo.path().projection(projection);
 				var tooltipDiv = document.getElementById('tooltip');
 				var areas = group.append("path")

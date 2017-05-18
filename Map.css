@@ -49,22 +49,10 @@ select{
 	position: absolute;
 }
 
-/*
 #dataset{
-	border-radius: 4px;
-	border: 1.2px solid;
-	height: 30px;
-	padding: 1%;
-
 	margin-right: 3%;
-
-	outline: none;
-	cursor: pointer;
-
-	font-weight: bold;
-
-	color: black;
-}*/
+	margin-left: 2%;
+}
 
 
 
