@@ -19,7 +19,7 @@
 		var base_color = d3.scale.category20();
 		var variableName, clicking = 0;
 		var attributesJSON;
-		var list = document.getElementById("#attribute");
+		var list = document.getElementById("attribute");
 
 		// Make drop down list of topics
 		var topicsJSON=d3.json('JSON/List/topics.json',function(json){
@@ -102,6 +102,9 @@
 
     	// Change Attribute List based on the Selected Topic
     	function changeDropdown(topic){
+    		//document.getElementById("#attribute").options.length = 0;
+    		removeDropDown();
+
     		var topic = d3.select("#dataset").node().value;
     		attributesJSON = d3.json('JSON/List/' + topic + '.json',function(json){
 				attributesJSON = json;
