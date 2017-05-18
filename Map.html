@@ -74,9 +74,6 @@
 				}
 				var attrMax = d3.max(attrValue);
 				var attrMin = d3.min(attrValue);
-				var colorScale = d3.scale.quantile()
-					.range(["#2c7bb6", "#00a6ca","#00ccbc","#90eb9d","#ffff8c","#f9d057","#f29e2e","#e76818","#d7191c"])
-					.domain([attrMin, attrMax])
 				// Draw London Map
 				var svg = d3.select("body").append("svg")
 					.attr("id", "map")
@@ -193,9 +190,15 @@
 							d3.select(this).style("fill-opacity", 1) // Highlight selected area
 								.style("stroke", "rgba(5, 4, 4, 1)");
  								tooltipDiv.style.display = "block"; // Show tooltip
-								tooltipDiv.innerHTML = 
+ 							if(dataset == "Economics"){
+ 								tooltipDiv.innerHTML = 
 								"District Name: " + d.properties.PROV3NAME + "<br/>" + 
 								sel + ": " + d.properties[variableName] + "<br/>"
+ 							}else{
+ 								tooltipDiv.innerHTML = 
+								"COA Code: " + d.properties.COA_Code + "<br/>" + 
+								sel + ": " + d.properties[variableName] + "<br/>"
+ 							}
 							clicking = 1;
 						}else{
 							d3.selectAll("path").style("fill-opacity",0.8)
