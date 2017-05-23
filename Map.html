@@ -190,9 +190,9 @@
 					})
 					.style("fill-opacity", 0.8)
 					.style("stroke", "rgba(5, 4, 4, 0.6)")
-					.on("click", function(d){
+					.on("mouseover", function(d){
 						var currentDistrict = this;
-						if (clicking == 0){
+						//if (clicking == 0){
 							d3.select(this).style("fill-opacity", 1) // Highlight selected area
 								.style("stroke", "rgba(5, 4, 4, 1)");
  								tooltipDiv.style.display = "block"; // Show tooltip
@@ -205,13 +205,18 @@
 								"COA Code: " + d.properties.COA_Code + "<br/>" + 
 								sel + ": " + d.properties[variableName] + "<br/>"
  							}
-							clicking = 1;
-						}else{
-							d3.selectAll("path").style("fill-opacity",0.8)
+							//clicking = 1;
+						// }else{
+						// 	d3.selectAll("path").style("fill-opacity",0.8)
+						// 	.style("stroke", "rgba(5, 4, 4, 0.6)");
+						// 	tooltipDiv.style.display = "none"; // hide tooltip
+						// 	clicking = 0;
+						// }
+					})
+					.on("mouseout", function(d){
+						d3.selectAll("path").style("fill-opacity",0.8)
 							.style("stroke", "rgba(5, 4, 4, 0.6)");
 							tooltipDiv.style.display = "none"; // hide tooltip
-							clicking = 0;
-						}
 					});
 				if (variableName != "Select An Attribute"){
 
