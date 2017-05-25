@@ -17,9 +17,10 @@
 		var w = window.innerWidth/2;
 		var h = window.innerHeight/2;
 		var base_color = d3.scale.category20();
-		var variableName, clicking = 0;
+		var variableName, centered, clicking = 0;
 		var attributesJSON;
 		var list = document.getElementById("attribute");
+
 
 		// Make drop down list of topics
 		var topicsJSON=d3.json('JSON/List/topics.json',function(json){
@@ -202,7 +203,7 @@
 								sel + ": " + d.properties[variableName] + "<br/>"
  							}else{
  								tooltipDiv.innerHTML = 
-								"COA Code: " + d.properties.COA_Code + "<br/>" + 
+								"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
 								sel + ": " + d.properties[variableName] + "<br/>"
  							}
 							//clicking = 1;
@@ -217,7 +218,28 @@
 						d3.selectAll("path").style("fill-opacity",0.8)
 							.style("stroke", "rgba(5, 4, 4, 0.6)");
 							tooltipDiv.style.display = "none"; // hide tooltip
-					});
+					})
+					.on("click", function(d){
+ 					var x, y, k;
+					  if (d && centered !== d) {
+					    var centroid = path.centroid(d);
+					    x = centroid[0];
+					    y = centroid[1];
+					    k = 2;
+					    centered = d;
+					  } else {
+					    x = w / 2;
+					    y = h / 2;
+					    k = 1;
+					    centered = null;
+					  }
+					  group.selectAll("path")
+					      .classed("active", centered && function(d) { return d === centered; });
+
+					  group.transition()
+					      .duration(750)
+					      .attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
+				});
 				if (variableName != "Select An Attribute"){
 
 					var keyElm = document.getElementById("y axis")
