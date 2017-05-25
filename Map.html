@@ -20,6 +20,7 @@
 		var variableName, centered, clicking = 0;
 		var attributesJSON;
 		var list = document.getElementById("attribute");
+		var formatDecimal = d3.format(".2f")
 
 
 		// Make drop down list of topics
@@ -156,8 +157,20 @@
 				console.log(sel + " " + variableName)
 
 				var attrValue = []; // store all the values of selected attribute.
-				for (var i = 0; i < data.features.length; i++){
-					attrValue[i] = data.features[i].properties[variableName];
+				if (dataset != "Population"){
+					for (var i = 0; i < data.features.length; i++){
+						attrValue[i] = data.features[i].properties[variableName];
+					}
+				}else{
+					if (variableName != "2001POP"){
+						for (var i = 0; i < data.features.length; i++){
+							attrValue[i] = data.features[i].properties[variableName]/data.features[i].properties["2001POP"]*100;
+						}
+					}else{
+						for (var i = 0; i < data.features.length; i++){
+							attrValue[i] = data.features[i].properties["2001POP"];
+						}
+					}
 				}
 				var attrMax = d3.max(attrValue);
 				var attrMin = d3.min(attrValue);
@@ -183,10 +196,20 @@
 					.attr("d",path)
 					.attr("class", "area")
 					.style("fill", function(d){
-						if(variableName != "Select An Attribute"){
-							return colorScale(d.properties[variableName])
+						if (dataset == "Population"){
+							if (variableName != "Select An Attribute") {
+								if (variableName != "2001POP") {
+									return colorScale(d.properties[variableName]/d.properties["2001POP"]*100)
+								}else{
+									return colorScale(d.properties["2001POP"])
+								}
+							}
 						}else{
-							return "gray"
+							if(variableName != "Select An Attribute"){
+								return colorScale(d.properties[variableName])
+							}else{
+								return "gray"
+							}
 						}
 					})
 					.style("fill-opacity", 0.8)
@@ -202,9 +225,15 @@
 								"District Name: " + d.properties.PROV3NAME + "<br/>" + 
 								sel + ": " + d.properties[variableName] + "<br/>"
  							}else{
- 								tooltipDiv.innerHTML = 
-								"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
-								sel + ": " + d.properties[variableName] + "<br/>"
+ 								if (variableName != "2001POP"){
+ 									tooltipDiv.innerHTML = 
+									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
+									sel + ": " + formatDecimal(d.properties[variableName]/d.properties["2001POP"]*100) + "%" + "<br/>"
+ 								}else{
+ 									tooltipDiv.innerHTML = 
+									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
+									sel + ": " + d.properties["2001POP"] + "<br/>"
+ 								}
  							}
 							//clicking = 1;
 						// }else{
