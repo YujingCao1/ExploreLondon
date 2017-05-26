@@ -20,7 +20,8 @@
 		var variableName, centered, clicking = 0;
 		var attributesJSON;
 		var list = document.getElementById("attribute");
-		var formatDecimal = d3.format(".2f")
+		var formatDecimal = d3.format(".2f"), 
+			formatPercent = d3.format(".2%");
 
 
 		// Make drop down list of topics
@@ -199,14 +200,14 @@
 						if (dataset == "Population"){
 							if (variableName != "Select An Attribute") {
 								if (variableName != "2001POP") {
-									return colorScale(d.properties[variableName]/d.properties["2001POP"]*100)
+									return colorScale(d.properties[variableName]/d.properties["2001POP"]*100);
 								}else{
-									return colorScale(d.properties["2001POP"])
+									return colorScale(d.properties["2001POP"]);
 								}
 							}
 						}else{
 							if(variableName != "Select An Attribute"){
-								return colorScale(d.properties[variableName])
+								return colorScale(d.properties[variableName]);
 							}else{
 								return "gray"
 							}
@@ -228,7 +229,8 @@
  								if (variableName != "2001POP"){
  									tooltipDiv.innerHTML = 
 									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
-									sel + ": " + formatDecimal(d.properties[variableName]/d.properties["2001POP"]*100) + "%" + "<br/>"
+									sel + ": " + d.properties[variableName] + "<br/>" +
+									"Percentage" + ": " + formatPercent(d.properties[variableName]/d.properties["2001POP"]) + "<br/>"
  								}else{
  									tooltipDiv.innerHTML = 
 									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
