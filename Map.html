@@ -223,18 +223,18 @@
  								tooltipDiv.style.display = "block"; // Show tooltip
  							if(dataset == "Economics"){
  								tooltipDiv.innerHTML = 
-								"District Name: " + d.properties.PROV3NAME + "<br/>" + 
-								sel + ": " + d.properties[variableName] + "<br/>"
+								"<strong>" + "District Name" + "</strong>" + ": " + d.properties.PROV3NAME + "<br/>" + 
+								"<strong>" + sel + "</strong>" + ": " + d.properties[variableName] + "<br/>"
  							}else{
  								if (variableName != "2001POP"){
  									tooltipDiv.innerHTML = 
-									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
-									sel + ": " + d.properties[variableName] + "<br/>" +
-									"Percentage" + ": " + formatPercent(d.properties[variableName]/d.properties["2001POP"]) + "<br/>"
+									"<strong>" + "Census Output Area" + "</strong>" + ": " + d.properties.COA_Code + "<br/>" + 
+									"<strong>" + sel + "</strong>" + ": " + d.properties[variableName] + "<br/>" +
+									"<strong> Percentage </strong>" + ": " + formatPercent(d.properties[variableName]/d.properties["2001POP"]) + "<br/>"
  								}else{
  									tooltipDiv.innerHTML = 
-									"Census Output Area : " + d.properties.COA_Code + "<br/>" + 
-									sel + ": " + d.properties["2001POP"] + "<br/>"
+									"<strong>" + "Census Output Area" + "</strong>" + ": " + d.properties.COA_Code + "<br/>" + 
+									"<strong>" + sel + "</strong>" + ": " + d.properties["2001POP"] + "<br/>"
  								}
  							}
 							//clicking = 1;
@@ -324,15 +324,26 @@
 							.attr("dy", ".71em")
 							.style("text-anchor", "end");
 						}else{
-							key.append("g").attr("class", "y axis")
-							.attr("transform", "translate(42,10)")
-							.call(yAxis)
-							.append("text")
-							.attr("transform", "rotate(-90)")
-							.attr("y", 30)
-							.attr("dy", ".71em")
-							.style("text-anchor", "end")
-							.text("Percentage");
+							if (variableName != "2001POP") {
+								key.append("g").attr("class", "y axis")
+								.attr("transform", "translate(42,10)")
+								.call(yAxis)
+								.append("text")
+								.attr("transform", "rotate(-90)")
+								.attr("y", 30)
+								.attr("dy", ".71em")
+								.style("text-anchor", "end")
+								.text("Percentage");
+							}else{
+								key.append("g").attr("class", "y axis")
+								.attr("transform", "translate(42,10)")
+								.call(yAxis)
+								.append("text")
+								.attr("transform", "rotate(-90)")
+								.attr("y", 30)
+								.attr("dy", ".71em")
+								.style("text-anchor", "end");
+							}
 						}
 					}else{
 						d3.selectAll(".axis").remove();
@@ -346,15 +357,26 @@
 							.attr("dy", ".71em")
 							.style("text-anchor", "end");
 						}else{
-							key.append("g").attr("class", "y axis")
-							.attr("transform", "translate(42,10)")
-							.call(yAxis)
-							.append("text")
-							.attr("transform", "rotate(-90)")
-							.attr("y", 30)
-							.attr("dy", ".71em")
-							.style("text-anchor", "end")
-							.text("Percentage");
+							if (variableName != "2001POP") {
+								key.append("g").attr("class", "y axis")
+								.attr("transform", "translate(42,10)")
+								.call(yAxis)
+								.append("text")
+								.attr("transform", "rotate(-90)")
+								.attr("y", 30)
+								.attr("dy", ".71em")
+								.style("text-anchor", "end")
+								.text("Percentage");
+							}else{
+								key.append("g").attr("class", "y axis")
+								.attr("transform", "translate(42,10)")
+								.call(yAxis)
+								.append("text")
+								.attr("transform", "rotate(-90)")
+								.attr("y", 30)
+								.attr("dy", ".71em")
+								.style("text-anchor", "end");
+							}
 						}
 					}
 				}
