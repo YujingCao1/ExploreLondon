@@ -22,8 +22,6 @@
 		var list = document.getElementById("attribute");
 		var formatDecimal = d3.format(".2f"), 
 			formatPercent = d3.format(".2%");
-
-
 		// Make drop down list of topics
 		var topicsJSON=d3.json('JSON/List/topics.json',function(json){
 				topicsJSON=json;
@@ -45,7 +43,6 @@
 										return d.name;
 									});
 			});
-
 		// Make drop down list of attributes
 			d3.json('JSON/List/Economics.json',function(json){
 				d3.select("#attribute").selectAll("option")
@@ -66,7 +63,6 @@
 										return d.name;
 									});
 			});
-
 		function load(){
 			d3.json('JSON/Economics.json', function(error, data){
 				if(error) console.log("error fetching data");
@@ -100,12 +96,10 @@
 					});
 			});
     	}
-
     	// Change Attribute List based on the Selected Topic
     	function changeDropdown(topic){
    
     		removeDropDown();
-
     		var topic = d3.select("#dataset").node().value;
     		attributesJSON = d3.json('JSON/List/' + topic + '.json',function(json){
 				attributesJSON = json;
@@ -128,7 +122,6 @@
 									});
 			});
     	}
-
     	// Change Topic
     	function changeTopic(topic, sel){
     		d3.selectAll("#map").remove();
@@ -143,20 +136,16 @@
 			d3.selectAll("#map").transition().remove();
 			drawMap(sel);
 		}
-
 		// Make a Map
 		function drawMap(sel){
-
 			var dataset  = d3.select("#dataset").node().value;
 			d3.json('JSON/' + dataset + '.json', function(error, data){
 				if(error) console.log("error fetching data");
-
 				// Get the selected value of the dropdown list
 				var sel = d3.select("#attribute").node().value;
 					variableName = attributeName(sel);
 					
 				console.log(sel + " " + variableName)
-
 				var attrValue = []; // store all the values of selected attribute.
 				if (dataset != "Population"){
 					for (var i = 0; i < data.features.length; i++){
@@ -173,8 +162,9 @@
 						}
 					}
 				}
-				var attrMax = d3.max(attrValue);
-				var attrMin = d3.min(attrValue);
+				var attrMax = variableName == "JOBS_DENSI"? Math.log(d3.max(attrValue)): d3.max(attrValue);
+				var attrMin = variableName == "JOBS_DENSI"? Math.log(d3.min(attrValue)): d3.min(attrValue);
+				var attrSecMax = attrValue.sort()[attrValue.length - 1];
 				var colorScale = d3.scale.linear()
 					.range(["#2c7bb6","#d7191c"])
 					.domain([attrMin, attrMax])
@@ -256,7 +246,7 @@
 					    var centroid = path.centroid(d);
 					    x = centroid[0];
 					    y = centroid[1];
-					    k = 2;
+					    k = 1.5;
 					    centered = d;
 					  } else {
 					    x = w / 2;
@@ -266,21 +256,17 @@
 					  }
 					  group.selectAll("path")
 					      .classed("active", centered && function(d) { return d === centered; });
-
 					  group.transition()
 					      .duration(750)
 					      .attr("transform", "translate(" + x + "," + y + ")scale(" + k + ")translate(" + -x + "," + -y + ")");
 				});
 				if (variableName != "Select An Attribute"){
-
 					var keyElm = document.getElementById("y axis")
-
 					var key = d3.select("body")
 					.append("svg")
 					.attr("id","key")
 					.attr("width", 140)
 					.attr("height", 300);
-
 					var legend = key.append("defs")
 						.append("svg:linearGradient")
 						.attr("id", "gradient")
@@ -289,30 +275,24 @@
 						.attr("x2", "100%")
 						.attr("y2", "100%")
 						.attr("spreadMethod", "pad");
-
 					legend.append("stop")
 					.attr("offset", "0%")
 					.attr("stop-color", "#d7191c")
 					.attr("stop-opacity", 1);
-
 					legend.append("stop")
 					.attr("offset", "100%")
 					.attr("stop-color", "#2c7bb6")
 					.attr("stop-opacity", 1);
-
 					key.append("rect")
 					.attr("width", 30)
 					.attr("height", 400)
 					.style("fill", "url(#gradient)")
 					.attr("transform", "translate(0,10)");
-
 					var y = d3.scale.linear()
 					.range([370, 0])
 					.domain([attrMin, attrMax]);
-
 					var yAxis = d3.svg.axis()
 						.scale(y).orient("right");
-
 					if (keyElm != null){
 						if (dataset != "Population"){
 							key.append("g").attr("class", "y axis")
@@ -382,12 +362,10 @@
 				}
 			});
 		}
-
 		// Get District Name
 		function districtName(d){
 			return d && d.properties? d.properties.PROV3NAME:null;
 		}
-
 		// Get variable name from Attribute list
 		function attributeName(val){
 			attributesJSON.forEach(function(d){
@@ -397,7 +375,6 @@
 			})
 			return variableName
 		}
-
 		// Remove Options from Dropdown List
         function removeDropDown(){
             if (list.options.length > 0){
